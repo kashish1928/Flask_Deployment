@@ -1,35 +1,46 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jun 28 15:59:19 2022
-
-@author: kashishhj
-"""
-
-
-import numpy as np
+'''import numpy as np
 from flask import Flask, request,render_template
 import pickle
 
 app = Flask(__name__)
-#model = pickle.load(open('model.pkl', 'rb'))
+model = pickle.load(open('model.pkl', 'rb'))
 
 @app.route('/')
 def home():
-    return render_template('/Users/kashishhj/Desktop/Web Development/bg.html')
+    return render_template('index.html')
 
 @app.route('/predict',methods=['POST'])
 def predict():
-    '''
-    For rendering results on HTML GUI
+    
+#    For rendering results on HTML GUI
     
     int_features = [int(x) for x in request.form.values()]
     final_features = [np.array(int_features)]
     prediction = model.predict(final_features)
 
-    output = round(prediction[0], 2)'''
+    output = round(prediction[0], 2)
 
-    return render_template('/Users/kashishhj/Desktop/Web Development/bg.html')
+    return render_template('index.html', prediction_text='House price should be $ {}'.format(output))
+
+if __name__ == "__main__":
+    app.run(debug=True)'''
+    
+from flask import Flask, render_template,request
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return render_template("flask.html")
+
+
+@app.route("/sampleDG",methods = ['POST'])
+def submit():
+    if(request.method == "POST"):
+        name = request.form["username"]
+    return render_template("sampleDG.html", n = name)
+        
+
 
 if __name__ == "__main__":
     app.run(debug=True)
